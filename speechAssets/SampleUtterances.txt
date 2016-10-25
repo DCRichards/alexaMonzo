@@ -1,0 +1,4 @@
+BalanceIntent what is my current balance
+BalanceIntent tell me my balance
+BalanceIntent what's my balance
+BalanceIntent how's my balance looking
