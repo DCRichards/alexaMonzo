@@ -15,12 +15,10 @@ module.exports = function(monzo) {
         })
         .then(function(balance) {
           var amount = parseInt(balance.balance/100);
-          var spent = parseInt(balance.spend_today/100);
+          var spent = parseInt((balance.spend_today*-1)/100);
           self.emit(':tell', 'Your balance is ' + amount + ' pounds, you spent ' + spent + ' pounds today.');
         })
         .catch(function(error) {
-          console.log('There was an error');
-          console.log(error);
           self.emit(':tell', 'Sorry, I can\'t get your balance right now');
         });
     },
