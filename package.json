@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "archive": "zip -r dist/lib-$(git rev-parse HEAD).zip . -x *.git* -x dist/*",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "s3": "aws s3 cp dist/lib.zip s3://alexamonzo/lib.zip",
+    "archive": "zip -r dist/lib.zip . -x *.git* -x dist/*",
+    "deploy": "npm run archive && npm run s3"
   },
   "keywords": [
     "alexa",
