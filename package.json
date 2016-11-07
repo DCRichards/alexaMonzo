@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "s3": "aws s3 cp dist/lib.zip s3://alexamonzo/lib.zip",
+    "s3": "aws s3 cp dist/lib.zip s3://monzoalexa/lib.zip",
     "archive": "zip -r dist/lib.zip . -x *.git* -x dist/*",
     "deploy": "npm run archive && npm run s3"
   },
