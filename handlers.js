@@ -1,29 +1,30 @@
 'use strict';
 
-var log = require('npmlog');
+const log = require('npmlog');
 
-module.exports = function(monzo) {
+module.exports = (monzo) => {
   return {
-    'LaunchRequest': function () {
-        this.emit('BalanceIntent');
+    'LaunchRequest': () => {
+      this.emit('BalanceIntent');
     },
-    'BalanceIntent': function() {
-      var self = this;
+    'BalanceIntent': () => {
       return monzo.getAccounts()
-        .then(function(accounts) {
+        .then((accounts) => {
           return monzo.getBalance(accounts[0].id);
         })
-        .then(function(balance) {
-          var amount = parseInt(balance.balance/100);
-          var spent = parseInt((balance.spend_today*-1)/100);
-          self.emit(':tell', 'Your balance is ' + amount + ' pounds, you spent ' + spent + ' pounds today.');
+        .then((balance) => {
+          let amount = parseInt(balance.balance/100);
+          let spent = parseInt((balance.spend_today*-1)/100);
+          this.emit(':tell', `Your balance is ${amount} pounds, you spent ${spent} pounds today.`);
         })
-        .catch(function(error) {
-          self.emit(':tell', 'Sorry, I can\'t get your balance right now');
+        .catch((error) => {
+          log.error('Handler', 'Error: %j', error);
+          this.emit(':tell', 'Sorry, I can\'t get your balance right now');
         });
     },
-    'Unhandled': function() {
+    'Unhandled': () => {
       this.emit(':tell', 'Sorry, I don\'t understand');
     }
   };
 };
+
