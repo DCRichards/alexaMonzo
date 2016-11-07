@@ -1,24 +1,22 @@
 'use strict';
 
-var request = require('request');
-var Promise = require('bluebird');
-var config = require('./config');
+const request = require('request');
+const config = require('./config');
 
-module.exports = function(apiKey) {
-  var self = this;
+module.exports = (apiKey) => {
   this.apiKey = apiKey;
   
-  this.getAccounts = function() {
-    return new Promise(function(resolve, reject) {
+  this.getAccounts = () => {
+    return new Promise((resolve, reject) => {
       request({
         baseUrl: config.monzo.url,
         method: 'GET',
         json: true,
         url: '/accounts',
         headers: {
-          'Authorization': 'Bearer ' + self.apiKey
+          'Authorization': 'Bearer ' + this.apiKey
         }
-      }, function(error, response) {
+      }, (error, response) => {
           if (error) {
             return reject(error);
           }
@@ -27,17 +25,17 @@ module.exports = function(apiKey) {
     });
   };
   
-  this.getBalance = function(accountId) {
-    return new Promise(function(resolve, reject) {
+  this.getBalance = (accountId) => {
+    return new Promise((resolve, reject) => {
       request({
         baseUrl: config.monzo.url,
         method: 'GET',
         json: true,
         url: '/balance?account_id='+accountId,
         headers: {
-          'Authorization': 'Bearer ' + self.apiKey
+          'Authorization': 'Bearer ' + this.apiKey
         }
-      }, function(error, response) {
+      }, (error, response) => {
           if (error) {
             return reject(error);
           }
@@ -46,3 +44,4 @@ module.exports = function(apiKey) {
     });
   };
 };
+
