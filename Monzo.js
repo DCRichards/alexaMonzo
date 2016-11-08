@@ -6,7 +6,7 @@ class Monzo {
   
   constructor(apiKey) {
     this.apiKey = apiKey;
-    this.request = require('./request').defaults({
+    this.request = require('request').defaults({
       baseUrl: config.monzo.url,
       method: 'GET',
       json: true,
