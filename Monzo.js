@@ -3,10 +3,13 @@
 const request = require('request');
 const config = require('./config');
 
-module.exports = (apiKey) => {
-  this.apiKey = apiKey;
+class Monzo {
   
-  this.getAccounts = () => {
+  constructor(apiKey) {
+    this.apiKey = apiKey;
+  }
+  
+  getAccounts() {
     return new Promise((resolve, reject) => {
       request({
         baseUrl: config.monzo.url,
@@ -23,9 +26,9 @@ module.exports = (apiKey) => {
           return resolve(response.body.accounts);
       });
     });
-  };
+  }
   
-  this.getBalance = (accountId) => {
+  getBalance(accountId) {
     return new Promise((resolve, reject) => {
       request({
         baseUrl: config.monzo.url,
@@ -42,6 +45,8 @@ module.exports = (apiKey) => {
           return resolve(response.body);
       });
     });
-  };
-};
+  }
+}
+
+module.exports = Monzo;
 
