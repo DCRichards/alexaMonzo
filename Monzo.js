@@ -1,48 +1,40 @@
 'use strict';
 
-const request = require('request');
 const config = require('./config');
 
 class Monzo {
   
   constructor(apiKey) {
     this.apiKey = apiKey;
+    this.request = require('./request').defaults({
+      baseUrl: config.monzo.url,
+      method: 'GET',
+      json: true,
+      headers: {
+        'Authorization': `Bearer ${this.apiKey}`
+      }
+    });
   }
-  
+
   getAccounts() {
     return new Promise((resolve, reject) => {
-      request({
-        baseUrl: config.monzo.url,
-        method: 'GET',
-        json: true,
-        url: '/accounts',
-        headers: {
-          'Authorization': 'Bearer ' + this.apiKey
+      this.request('/accounts', (error, res, body) => {
+        if (error) {
+          return reject(error);
         }
-      }, (error, response) => {
-          if (error) {
-            return reject(error);
-          }
-          return resolve(response.body.accounts);
+        return resolve(body.accounts);
       });
     });
   }
   
   getBalance(accountId) {
     return new Promise((resolve, reject) => {
-      request({
-        baseUrl: config.monzo.url,
-        method: 'GET',
-        json: true,
-        url: '/balance?account_id='+accountId,
-        headers: {
-          'Authorization': 'Bearer ' + this.apiKey
+      let query = { 'account_id': accountId };
+      this.request({ url: '/balance', qs: query }, (error, res, body) => {
+        if (error) {
+          return reject(error);
         }
-      }, (error, response) => {
-          if (error) {
-            return reject(error);
-          }
-          return resolve(response.body);
+        return resolve(body);
       });
     });
   }
