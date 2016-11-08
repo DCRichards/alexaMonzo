@@ -22,7 +22,7 @@ class Monzo {
         if (error) {
           return reject(error);
         }
-        return resolve(body.accounts);
+        return resolve(res.body.accounts);
       });
     });
   }
@@ -34,7 +34,7 @@ class Monzo {
         if (error) {
           return reject(error);
         }
-        return resolve(body);
+        return resolve(res.body);
       });
     });
   }

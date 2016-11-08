@@ -18,7 +18,7 @@ module.exports = (monzo) => {
           this.emit(':tell', `Your balance is ${amount} pounds, you spent ${spent} pounds today.`);
         })
         .catch((error) => {
-          log.error('Handler', 'Error: %j', error);
+          log.error('Handler', 'Error', error);
           this.emit(':tell', 'Sorry, I can\'t get your balance right now');
         });
     },
