@@ -12,4 +12,3 @@ exports.handler = (event, context, callback) => {
   log.info('Index', 'Executing handler...');
   alexa.execute();
 };
-

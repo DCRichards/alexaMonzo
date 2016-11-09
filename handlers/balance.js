@@ -17,4 +17,3 @@ module.exports = (monzo) => {
       this.emit(':tell', 'Sorry, I can\'t get your balance right now');
     });
 };
-

@@ -3,4 +3,3 @@
 module.exports = () => {
   this.emit('BalanceIntent');
 };
-
