@@ -1,24 +1,24 @@
 'use strict';
 
+const request = require('request');
 const config = require('./config');
 
 class Monzo {
-  
   constructor(apiKey) {
     this.apiKey = apiKey;
-    this.request = require('request').defaults({
+    this.request = request.defaults({
       baseUrl: config.monzo.url,
       method: 'GET',
       json: true,
       headers: {
-        'Authorization': `Bearer ${this.apiKey}`
+        'Authorization': `Bearer ${apiKey}`
       }
     });
   }
 
   getAccounts() {
     return new Promise((resolve, reject) => {
-      this.request('/accounts', (error, res, body) => {
+      this.request('/accounts', (error, res) => {
         if (error) {
           return reject(error);
         }
@@ -30,7 +30,7 @@ class Monzo {
   getBalance(accountId) {
     return new Promise((resolve, reject) => {
       let query = { 'account_id': accountId };
-      this.request({ url: '/balance', qs: query }, (error, res, body) => {
+      this.request({ url: '/balance', qs: query }, (error, res) => {
         if (error) {
           return reject(error);
         }
