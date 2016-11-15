@@ -25,20 +25,28 @@ npm install
 
 ## Deployment
 
-### Amazon S3
+### AWS Lambda
 
-To archive and upload to S3, simply run:
+To archive, upload to S3 and deploy to AWS Lambda, simply run the following:
 
-```
+```shell
 npm run deploy
 ```
 
-### Zip Archive
+### Archive
 
-You can also generate a .zip file which can be uploaded to AWS Lambda  using the following command:
+To generate the zip archive:
 
 ```shell
 npm run archive
 ```
 
 The file will be outputted to `dist/lib.zip`.
+
+### S3
+
+To upload the archived zip file to S3, run the following:
+
+```shell
+npm run s3
+```
