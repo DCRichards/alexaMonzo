@@ -6,10 +6,10 @@ const config = require('./config');
 class Monzo {
 
   /**
-   * Create a new Monzo instance
+   * Create a new Monzo instance.
    *
    * @constructor
-   * @param {String} apiKey The API key for accessing the Monzo API
+   * @param {String} apiKey The API key for accessing the Monzo API.
    */
   constructor(apiKey) {
     this.apiKey = apiKey;
@@ -24,7 +24,7 @@ class Monzo {
   }
 
   /**
-   * Retrieve the accounts for the current user
+   * Retrieve the accounts associated with the current user.
    *
    * @return {Promise}
    */
@@ -43,9 +43,9 @@ class Monzo {
   }
   
   /**
-   * Get the balance and current spend for an account
+   * Retrieve the balance and today's spend for an account.
    *
-   * @param {String} accountId The ID associated with the given account
+   * @param {String} accountId The ID associated with the given account.
    * @return {Promise} 
    */
   getBalance(accountId) {
@@ -59,6 +59,28 @@ class Monzo {
           return reject(res.body);
         }
         return resolve(res.body);
+      });
+    });
+  }
+  
+  /**
+   * Retrieve the recent transactions for an account.
+   *
+   * @param {String} accountId The ID associated with the given account.
+   * @param {Number} limit Limit to a number of transactions, default 5.
+   * @return {Promise}
+   */
+  getTransactions(accountId, limit) {
+    return new Promise((resolve, reject) => {
+      let query = { 'account_id': accountId, 'limit': limit || 5 };
+      this.request({ url: '/transactions', qs: query }, (err, res) => {
+        if (error) {
+          return reject(err);
+        }
+        if (res.statusCode !== 200) {
+          return reject(res.body);
+        }
+        return resolve(res.body.transactions);
       });
     });
   }
