@@ -1,5 +1,7 @@
 'use strict';
 
 module.exports = () => {
-  this.emit('BalanceIntent');
+  return () => {
+    this.emit('BalanceIntent');
+  };
 };

@@ -5,5 +5,5 @@ module.exports = (monzo) => {
     'LaunchRequest': require('./launch'),
     'BalanceIntent': require('./balance')(monzo),
     'Unhandled': require('./unhandled'),
-  };  
+  };
 };
