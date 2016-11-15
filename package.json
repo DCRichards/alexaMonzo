@@ -7,7 +7,8 @@
     "start": "node index.js",
     "s3": "aws s3 cp dist/lib.zip s3://monzoalexa/lib.zip",
     "archive": "zip -r dist/lib.zip . -x *.git* -x dist/*",
-    "deploy": "npm run archive && npm run s3"
+    "lambda": "aws lambda update-function-code --region us-east-1 --function-name AlexaMonzo --s3-bucket monzoalexa --s3-key lib.zip",
+    "deploy": "npm run archive && npm run s3 && npm run lamda"
   },
   "keywords": [
     "alexa",
