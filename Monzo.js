@@ -52,7 +52,7 @@ class Monzo {
     return new Promise((resolve, reject) => {
       let query = { 'account_id': accountId };
       this.request({ url: '/balance', qs: query }, (err, res) => {
-        if (error) {
+        if (err) {
           return reject(err);
         }
         if (res.statusCode !== 200) {
