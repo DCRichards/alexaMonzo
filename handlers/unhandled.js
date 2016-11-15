@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = () => {
-  return () => {
+  return function() {
     this.emit(':tell', 'Sorry, I don\'t understand');
   };
 };

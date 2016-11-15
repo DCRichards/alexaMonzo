@@ -4,7 +4,7 @@ const log = require('npmlog');
 const TAG = 'handler';
 
 module.exports = (monzo) => {
-  return () => {
+  return function() {
     return monzo.getAccounts()
       .then((accounts) => {
         if (!accounts[0]) {
@@ -18,7 +18,7 @@ module.exports = (monzo) => {
         this.emit(':tell', `Your balance is ${amount} pounds, you spent ${spent} pounds today.`);
       })
       .catch((error) => {
-        log.error(TAG, 'Error', error);
+        log.error(TAG, 'Error: %j', error);
         this.emit(':tell', 'Sorry, I can\'t get your balance right now');
       });
   };
