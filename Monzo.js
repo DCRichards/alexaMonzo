@@ -4,6 +4,13 @@ const request = require('request');
 const config = require('./config');
 
 class Monzo {
+
+  /**
+   * Create a new Monzo instance
+   *
+   * @constructor
+   * @param {String} apiKey The API key for accessing the Monzo API
+   */
   constructor(apiKey) {
     this.apiKey = apiKey;
     this.request = request.defaults({
@@ -16,6 +23,11 @@ class Monzo {
     });
   }
 
+  /**
+   * Retrieve the accounts for the current user
+   *
+   * @return {Promise}
+   */
   getAccounts() {
     return new Promise((resolve, reject) => {
       this.request('/accounts', (err, res) => {
@@ -30,6 +42,12 @@ class Monzo {
     });
   }
   
+  /**
+   * Get the balance and current spend for an account
+   *
+   * @param {String} accountId The ID associated with the given account
+   * @return {Promise} 
+   */
   getBalance(accountId) {
     return new Promise((resolve, reject) => {
       let query = { 'account_id': accountId };
