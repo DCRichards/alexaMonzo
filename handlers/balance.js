@@ -1,7 +1,7 @@
 'use strict';
 
 const log = require('npmlog');
-const TAG = 'handler';
+const TAG = 'balance';
 
 module.exports = (monzo) => {
   return function() {
