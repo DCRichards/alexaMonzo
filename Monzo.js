@@ -18,9 +18,12 @@ class Monzo {
 
   getAccounts() {
     return new Promise((resolve, reject) => {
-      this.request('/accounts', (error, res) => {
-        if (error) {
-          return reject(error);
+      this.request('/accounts', (err, res) => {
+        if (err) {
+          return reject(err);
+        }
+        if (res.statusCode !== 200) {
+          return reject(res.body);
         }
         return resolve(res.body.accounts);
       });
@@ -30,9 +33,12 @@ class Monzo {
   getBalance(accountId) {
     return new Promise((resolve, reject) => {
       let query = { 'account_id': accountId };
-      this.request({ url: '/balance', qs: query }, (error, res) => {
+      this.request({ url: '/balance', qs: query }, (err, res) => {
         if (error) {
-          return reject(error);
+          return reject(err);
+        }
+        if (res.statusCode !== 200) {
+          return reject(res.body);
         }
         return resolve(res.body);
       });
