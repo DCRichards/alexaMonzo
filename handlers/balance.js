@@ -6,6 +6,9 @@ module.exports = (monzo) => {
   return () => {
     return monzo.getAccounts()
       .then((accounts) => {
+        if (!accounts[0]) {
+          return Promise.reject('No accounts found');
+        }
         return monzo.getBalance(accounts[0].id);
       })
       .then((balance) => {
